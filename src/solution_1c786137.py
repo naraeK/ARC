@@ -15,7 +15,7 @@ class SolutionFor1c786137:
 
     def solve(self, input_grid):
         input_grid_copy = np.array(input_grid.copy())
-        print(input_grid_copy)
+        #print(input_grid_copy)
         r_len, c_len = input_grid_copy.shape
         index_edge_check = np.zeros((r_len,c_len), dtype = int)
         output_grid = []
@@ -38,15 +38,14 @@ class SolutionFor1c786137:
                     if r_index != 0 and input_grid_copy[r_index][c_index+1] == input_grid_copy[r_index-1][c_index+1] != 0:
                         index_edge_check[r_index][c_index + 1] = -111 * input_grid_copy[r_index][c_index + 1]
                         righttop = np.argwhere(index_edge_check == -11 * input_grid_copy[r_index][c_index + 1])
+                        rightbottom_row = r_index
+                        rightbottom_col = c_index + 1
                         if len(righttop) != 0:
-                            [[righttop_row, righttop_col]] = righttop
                             [[lefttop_row, lefttop_col]] = np.argwhere(index_edge_check == 11 * input_grid_copy[r_index][c_index + 1])
-                            print("righttop",righttop_row,righttop_col)
-                            print("lehttop", lefttop_row, lefttop_col)
+                            output_grid = input_grid_copy[lefttop_row+1:rightbottom_row,lefttop_col+1:rightbottom_col] # remove the frame
                     continue
-        print(output_grid)
-        print(index_edge_check)
-        return output_grid
+        #print(output_grid,"\n\n")
+        return output_grid.tolist()
 
     def testing_solve(self):
         train, test = self.split_json_into_train_test()
@@ -60,8 +59,8 @@ class SolutionFor1c786137:
             test_input_grid = test[j]["input"]
             test_output_grid = test[j]["output"]
             print("TESTINP", output_grid)
-            #result_grid = self.solve(input_grid)
-            #print("TESTOUT",result_grid)
+            result_grid = self.solve(input_grid)
+            print("TESTOUT",result_grid)
 
     # def list_to_json
 
