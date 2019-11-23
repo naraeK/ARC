@@ -1,3 +1,4 @@
+import sys
 import json
 import numpy as np
 
@@ -69,7 +70,11 @@ class SolutionFor1c786137:
 
 
 ######################## Test #########################
-json1c786137 = "../data/training/1c786137.json"
+if len(sys.argv) > 1:
+    json1c786137 = sys.argv[1]
+else:
+    json1c786137 = "../data/training/1c786137.json"
+
 # Create the object
 solution = SolutionFor1c786137(json1c786137)
 solution.testing_solve()

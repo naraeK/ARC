@@ -1,3 +1,4 @@
+import sys
 import json
 
 # test with other data. I will need "if color not exist"
@@ -68,7 +69,11 @@ class SolutionFor0b148d64:
 
 
 ######################## Test #########################
-json0b148d64 = "../data/training/0b148d64.json"
+if len(sys.argv) > 1:
+    json0b148d64 = sys.argv[1]
+else:
+    json0b148d64 = "../data/training/0b148d64.json"
+
 # Create the object
 solution = SolutionFor0b148d64(json0b148d64)
 solution.testing_solve()
