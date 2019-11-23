@@ -42,6 +42,7 @@ class SolutionFor1c786137:
                         rightbottom_col = c_index + 1
                         if len(righttop) != 0:
                             [[lefttop_row, lefttop_col]] = np.argwhere(index_edge_check == 11 * input_grid_copy[r_index][c_index + 1])
+                            # add if righttopcol == rightbottomcol
                             output_grid = input_grid_copy[lefttop_row+1:rightbottom_row,lefttop_col+1:rightbottom_col] # remove the frame
                     continue
         #print(output_grid,"\n\n")
