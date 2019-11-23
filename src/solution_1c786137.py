@@ -59,9 +59,9 @@ class SolutionFor1c786137:
         for j in range(len(test)):
             test_input_grid = test[j]["input"]
             test_output_grid = test[j]["output"]
-            print("TESTINP", output_grid)
-            result_grid = self.solve(input_grid)
-            print("TESTOUT",result_grid)
+            print("TESTOUT", test_output_grid)
+            test_result_grid = self.solve(test_input_grid)
+            print("TESTRES",test_result_grid)
 
     # def list_to_json
 
