@@ -8,7 +8,6 @@ import json
 import numpy as np
 import codecs
 
-
 class SolutionFor1c786137:
     def __init__(self, filename):
         self.filename = filename
@@ -28,10 +27,12 @@ class SolutionFor1c786137:
         for r_index in range(r_len): # check from 0 to r_len-1
             for c_index in range(c_len-1):
                 # Checking left top edge
-                if r_index != r_len-1 and input_grid_copy[r_index][c_index] == input_grid_copy[r_index][c_index + 1] == input_grid_copy[r_index + 1][c_index] != 0:
+                if r_index != r_len-1 and input_grid_copy[r_index][c_index] == input_grid_copy[r_index][c_index + 1] \
+                        == input_grid_copy[r_index + 1][c_index] != 0:
                     index_edge_check[r_index][c_index] = 11 * input_grid_copy[r_index][c_index]
                 # Checking left bottom edge
-                if r_index != r_len-1 and input_grid_copy[r_index+1][c_index] == input_grid_copy[r_index+1][c_index + 1] == input_grid_copy[r_index][c_index] != 0:
+                if r_index != r_len-1 and input_grid_copy[r_index+1][c_index] == input_grid_copy[r_index+1][c_index + 1] \
+                        == input_grid_copy[r_index][c_index] != 0:
                     index_edge_check[r_index+1][c_index] = 111 * input_grid_copy[r_index][c_index]
                     continue
                 # Checking if that continue from right to left
@@ -48,8 +49,7 @@ class SolutionFor1c786137:
                         rightbottom_col = c_index + 1
                         if len(righttop) != 0:
                             [[lefttop_row, lefttop_col]] = np.argwhere(index_edge_check == 11 * input_grid_copy[r_index][c_index + 1])
-                            # add if righttopcol == rightbottomcol
-                            output_grid = input_grid_copy[lefttop_row+1:rightbottom_row,lefttop_col+1:rightbottom_col] # remove the frame
+                            output_grid = input_grid_copy[lefttop_row+1:rightbottom_row,lefttop_col+1:rightbottom_col]
                     continue
         return output_grid.tolist()
 
@@ -67,7 +67,6 @@ class SolutionFor1c786137:
             train_dict = {}
             input_grid = train[i]["input"]
             train_dict['input'] = input_grid # json train input
-            output_grid = train[i]["output"]
             result_grid = self.solve(input_grid)
             self.printing_grid(result_grid)
             train_dict['output'] = result_grid # json train output by solve function
@@ -77,7 +76,6 @@ class SolutionFor1c786137:
             test_dict = {}
             test_input_grid = test[j]["input"]
             test_dict['input'] = test_input_grid
-            test_output_grid = test[j]["output"]
             test_result_grid = self.solve(test_input_grid)
             self.printing_grid(test_result_grid)
             test_dict['output'] = test_result_grid
