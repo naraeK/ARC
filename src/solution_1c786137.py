@@ -1,6 +1,7 @@
 import sys
 import json
 import numpy as np
+import codecs
 
 
 class SolutionFor1c786137:
@@ -16,7 +17,6 @@ class SolutionFor1c786137:
 
     def solve(self, input_grid):
         input_grid_copy = np.array(input_grid.copy())
-        #print(input_grid_copy)
         r_len, c_len = input_grid_copy.shape
         index_edge_check = np.zeros((r_len,c_len), dtype = int)
         output_grid = []
@@ -46,25 +46,39 @@ class SolutionFor1c786137:
                             # add if righttopcol == rightbottomcol
                             output_grid = input_grid_copy[lefttop_row+1:rightbottom_row,lefttop_col+1:rightbottom_col] # remove the frame
                     continue
-        #print(output_grid,"\n\n")
         return output_grid.tolist()
 
-    def testing_solve(self):
-        train, test = self.split_json_into_train_test()
-        for i in range(len(train)):
-            input_grid = train[i]["input"]
-            output_grid = train[i]["output"]
-            print("REALOU", output_grid)
-            result_grid = self.solve(input_grid)
-            print("RESULT",result_grid)
-        for j in range(len(test)):
-            test_input_grid = test[j]["input"]
-            test_output_grid = test[j]["output"]
-            print("TESTOUT", test_output_grid)
-            test_result_grid = self.solve(test_input_grid)
-            print("TESTRES",test_result_grid)
+    def printing_grid(self, result_grid):
+        for r in result_grid:
+            print(*r)
+        print("\n\n")
 
-    # def list_to_json
+    def testing_solve(self, json_file=""):
+        if json_file == "":
+            json_file = "output_1c786137.json"
+        train, test = self.split_json_into_train_test()
+        train_dict_list = []
+        for i in range(len(train)):
+            train_dict = {}
+            input_grid = train[i]["input"]
+            train_dict['input'] = input_grid # json train input
+            output_grid = train[i]["output"]
+            result_grid = self.solve(input_grid)
+            self.printing_grid(result_grid)
+            train_dict['output'] = result_grid # json train output by solve function
+            train_dict_list.append(train_dict)
+        test_dict_list = []
+        for j in range(len(test)):
+            test_dict = {}
+            test_input_grid = test[j]["input"]
+            test_dict['input'] = test_input_grid
+            test_output_grid = test[j]["output"]
+            test_result_grid = self.solve(test_input_grid)
+            self.printing_grid(test_result_grid)
+            test_dict['output'] = test_result_grid
+            test_dict_list.append(test_dict)
+        json_dict = {'train': train_dict_list, 'test': test_dict_list}
+        json.dump(json_dict, codecs.open(json_file, 'w', encoding='utf-8'), indent=None)
 
 
 
