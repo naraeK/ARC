@@ -1,3 +1,8 @@
+'''[CT5148] Assignment 3
+Student Name: Narae Kim
+Student ID: 19240062
+'''
+
 import sys
 import json
 import codecs
