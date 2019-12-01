@@ -8,7 +8,6 @@ import json
 import numpy as np
 import codecs
 
-
 class SolutionFor1f0c79e5:
     def __init__(self, filename):
         self.filename = filename
@@ -42,7 +41,7 @@ class SolutionFor1f0c79e5:
             row_indices.append(r_index)
         col_indices = []
         for c_index in range(col_index, col_stop, col_step):
-            col_indices.append(c_index + col_step)  # .append(c_index+1).append(c_index).append(c_index+1)
+            col_indices.append(c_index + col_step)
             col_indices.append(c_index)
             col_indices.append(c_index + col_step)
             col_indices.append(c_index)
@@ -59,25 +58,28 @@ class SolutionFor1f0c79e5:
         isleftbottom = (input_grid_copy[box_indices[2]] == 2)
         isrightbottom = (input_grid_copy[box_indices[3]] == 2)
         output_grid = input_grid_copy.copy()
-
+        # if the red edge is at the left top of the square box
         if islefttop:
             rightbottom_row, rightbottom_col = box_indices[3]
             row_indices, col_indices = self.defining_indices(rightbottom_row, rightbottom_col, True, True)
             for r, c in zip(row_indices, col_indices):
                 if r >= 0 and c >= 0:
                     output_grid[r,c] = color
+        # if the red edge is at the right top of the square box
         if isrighttop:
             leftbottom_row, leftbottom_col = box_indices[2]
             row_indices, col_indices = self.defining_indices(leftbottom_row, leftbottom_col, False, True)
             for r, c in zip(row_indices, col_indices):
                 if r >= 0 and c < self.c_end:
                     output_grid[r,c] = color
+        # if the red edge is at the left bottom of the square box
         if isleftbottom:
             righttop_row, righttop_col = box_indices[1]
             row_indices, col_indices = self.defining_indices(righttop_row, righttop_col, True, False)
             for r, c in zip(row_indices, col_indices):
                 if r >= 0 and c >= 0:
                     output_grid[r, c] = color
+        # if the red edge is at the right bottom of the square box
         if isrightbottom:
             lefttop_row, lefttop_col = box_indices[0]
             row_indices, col_indices = self.defining_indices(lefttop_row, lefttop_col, False, False)
@@ -100,7 +102,6 @@ class SolutionFor1f0c79e5:
             train_dict = {}
             input_grid = train[i]["input"]
             train_dict['input'] = input_grid # json train input
-            output_grid = train[i]["output"]
             result_grid = self.solve(input_grid)
             self.printing_grid(result_grid)
             train_dict['output'] = result_grid # json train output by solve function
@@ -110,7 +111,6 @@ class SolutionFor1f0c79e5:
             test_dict = {}
             test_input_grid = test[j]["input"]
             test_dict['input'] = test_input_grid
-            test_output_grid = test[j]["output"]
             test_result_grid = self.solve(test_input_grid)
             self.printing_grid(test_result_grid)
             test_dict['output'] = test_result_grid
@@ -121,14 +121,16 @@ class SolutionFor1f0c79e5:
 
 
 
-
 ######################## Test #########################
 if len(sys.argv) > 1:
     json1f0c79e5 = sys.argv[1]
 else:
     json1f0c79e5 = "../data/training/1f0c79e5.json"
 
-#output_json_file = "output.json"
 # Create the object
 solution = SolutionFor1f0c79e5(json1f0c79e5)
-solution.testing_solve()#output_json_file)
+solution.testing_solve()
+
+# Another way of saving JSON output file with a given filename
+#output_json_file = "output.json"
+#solution.testing_solve(output_json_file)
