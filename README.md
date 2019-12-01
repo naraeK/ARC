@@ -1,3 +1,9 @@
+This repository is for assignment 3 of the course 'Programming and Tools for AI' of CT5148 at NUI Galway.
+The soultion files can be found in a directory src/ under ARC/ that named as solution_0b148d64.py, solution_1c786137.py and solution_1f0c79e5.py.
+
+To run the code, you can clone the project and run the solution py files so that the default set JSON files as an input will print the output grid and save the output JSON file in the current directory. In the other hand, the command-line is recommandable to run the code as ($ python solution_jsonNumber.py path/to/JSONfile).
+
+
 # The Abstraction and Reasoning Corpus (ARC)
 
 This repository contains the ARC task data, as well as a browser-based interface for humans to try their hand at solving the tasks manually.
