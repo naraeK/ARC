@@ -7,9 +7,6 @@ import sys
 import json
 import codecs
 
-# test with other data. I will need "if color not exist"
-
-
 class SolutionFor0b148d64:
     def __init__(self, filename):
         self.filename = filename
@@ -22,15 +19,15 @@ class SolutionFor0b148d64:
         return (train, test)
 
     def solve(self, input_grid):
-        firstline_numbers = set(input_grid[0])
-        lastline_numbers = set(input_grid[-1])
-        if len(firstline_numbers) > len(lastline_numbers):
-            color = firstline_numbers.difference(lastline_numbers)
-            not_this_color = firstline_numbers.difference(color, {0}).pop()
+        firstrow_numbers = set(input_grid[0])
+        lastrow_numbers = set(input_grid[-1])
+        if len(firstrow_numbers) > len(lastrow_numbers):
+            color = firstrow_numbers.difference(lastrow_numbers)
+            not_this_color = firstrow_numbers.difference(color, {0}).pop()
             color = color.pop()
         else:
-            color = lastline_numbers.difference(firstline_numbers)
-            not_this_color = lastline_numbers.difference(color, {0}).pop()
+            color = lastrow_numbers.difference(firstrow_numbers)
+            not_this_color = lastrow_numbers.difference(color, {0}).pop()
             color = color.pop()
         output_grid = []
         max_index = 0
@@ -68,7 +65,6 @@ class SolutionFor0b148d64:
             train_dict = {}
             input_grid = train[i]["input"]
             train_dict['input'] = input_grid # json train input
-            output_grid = train[i]["output"]
             result_grid = self.solve(input_grid)
             self.printing_grid(result_grid)
             train_dict['output'] = result_grid # json train output by solve function
@@ -78,7 +74,6 @@ class SolutionFor0b148d64:
             test_dict = {}
             test_input_grid = test[j]["input"]
             test_dict['input'] = test_input_grid
-            test_output_grid = test[j]["output"]
             test_result_grid = self.solve(test_input_grid)
             self.printing_grid(test_result_grid)
             test_dict['output'] = test_result_grid
